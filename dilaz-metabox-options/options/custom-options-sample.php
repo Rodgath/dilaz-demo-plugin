@@ -11,17 +11,18 @@
 || @copyright  Copyright (C) 2017, Rodgath LTD
 || @link       https://github.com/Rodgath/Dilaz-Metabox
 || @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-|| 
+||
 || NOTE 1: Rename this file from "custom-options-sample.php" to "custom-options.php". If you
 ||         don't rename it, all your options and settings will be overwritten
 ||         when updating Dilaz Metabox Options.
-|| 
+||
 || NOTE 2: Add all your theme/plugin custom options in this file
-|| 
+||
 */
 
 defined('ABSPATH') || exit;
 
+use DilazMetabox\DilazMetaboxFunction;
 
 /**
  * Add custom metaboxes into dilaz metaboxes
@@ -33,7 +34,7 @@ defined('ABSPATH') || exit;
  * @return array
  */
 add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefix, $parameters) {
-	
+
 	# BOX - Test Beta
 	# =============================================================================================
 	$dilaz_meta_boxes[] = array(
@@ -44,7 +45,7 @@ add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefi
 		'priority' => 'low',
 		'type'     => 'metabox_set'
 	);
-	
+
 		# TAB - Beta Tab 1
 		# *****************************************************************************************
 		$dilaz_meta_boxes[] = array(
@@ -53,7 +54,7 @@ add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefi
 			'icon'  => 'mdi-bell',
 			'type'  => 'metabox_tab'
 		);
-			
+
 			# FIELDS - Beta Tab 1
 			# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 			$dilaz_meta_boxes[] = array(
@@ -69,7 +70,7 @@ add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefi
 				'name'	  => __('Custom Two:', 'dilaz-metabox'),
 				'desc'	  => '',
 				'type'	  => 'radio',
-				'options' => DilazMetaboxFunction::choice('yes_no'),
+				'options' => DilazMetaboxFunction\DilazMetaboxFunction::choice('yes_no'),
 				'std'     => 'no'
 			);
 			$dilaz_meta_boxes[] = array(
@@ -77,12 +78,12 @@ add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefi
 				'name'	  => __('Custom Three:', 'dilaz-metabox'),
 				'desc'	  => '',
 				'type'	  => 'radio',
-				'options' => DilazMetaboxFunction::choice('yes_no'),
+				'options' => DilazMetaboxFunction\DilazMetaboxFunction::choice('yes_no'),
 				'std'     => 'no'
 			);
-	
+
 	return $dilaz_meta_boxes;
-	
+
 }, 10, 3);
 
 
@@ -96,30 +97,30 @@ add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefi
  * @return array
  */
 add_filter('metabox_option_filter_'. $prefix, function($dilaz_meta_boxes, $prefix, $parameters) {
-	
+
 	# array data to be inserted
 	$insert_custom_data = [];
-	
+
 	$insert_custom_data[] = array(
 		'id'	  =>  $prefix .'custom_2_b',
 		'name'	  => __('INSERTED - Custom Two B:', 'dilaz-metabox'),
 		'desc'	  => __('Custom Two B inserted before Custom Two C.', 'dilaz-metabox'),
 		'type'	  => 'radio',
-		'options' => DilazMetaboxFunction::choice('def_yes_no'),
+		'options' => DilazMetaboxFunction\DilazMetaboxFunction::choice('def_yes_no'),
 		'std'     => 'yes'
 	);
-	
+
 	$insert_custom_data[] = array(
 		'id'	  =>  $prefix .'custom_2_c',
 		'name'	  => __('INSERTED - Custom Two C:', 'dilaz-metabox'),
 		'desc'	  => __('Custom Two C inserted before Custom Three.', 'dilaz-metabox'),
 		'type'	  => 'radio',
-		'options' => DilazMetaboxFunction::choice('def_yes_no'),
+		'options' => DilazMetaboxFunction\DilazMetaboxFunction::choice('def_yes_no'),
 		'std'     => 'yes'
 	);
-	
-	$insert = DilazMetaboxFunction::insert_field($dilaz_meta_boxes,  $prefix .'custom_options_imp',  $prefix .'custom_3', $insert_custom_data, 'before');
-	
+
+	$insert = DilazMetaboxFunction\DilazMetaboxFunction::insert_field($dilaz_meta_boxes,  $prefix .'custom_options_imp',  $prefix .'custom_3', $insert_custom_data, 'before');
+
 	return ($insert != false) ? array_merge($dilaz_meta_boxes, $insert) : $dilaz_meta_boxes;
-	
+
 }, 10, 3);
